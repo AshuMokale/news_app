@@ -1,16 +1,72 @@
-# news_app
+import 'package:flutter/material.dart';
 
-A new Flutter project.
+void main() {
+runApp(MyApp());
+}
 
-## Getting Started
+class MyApp extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+home: LoginScreen(),
+);
+}
+}
 
-This project is a starting point for a Flutter application.
+class LoginScreen extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(
+title: Text('Login'),
+),
+body: Padding(
+padding: EdgeInsets.all(16.0),
+child: LoginForm(),
+),
+);
+}
+}
 
-A few resources to get you started if this is your first Flutter project:
+class LoginForm extends StatefulWidget {
+@override
+_LoginFormState createState() => _LoginFormState();
+}
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+class _LoginFormState extends State<LoginForm> {
+final TextEditingController _usernameController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+@override
+Widget build(BuildContext context) {
+return Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+TextField(
+controller: _usernameController,
+decoration: InputDecoration(
+labelText: 'Username',
+),
+),
+SizedBox(height: 16.0),
+TextField(
+controller: _passwordController,
+obscureText: true,
+decoration: InputDecoration(
+labelText: 'Password',
+),
+),
+SizedBox(height: 24.0),
+ElevatedButton(
+onPressed: () {
+// TODO: Implement authentication logic
+String username = _usernameController.text;
+String password = _passwordController.text;
+print('Username: $username, Password: $password');
+},
+child: Text('Login'),
+),
+],
+);
+}
+}
