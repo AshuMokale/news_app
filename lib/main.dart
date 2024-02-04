@@ -8,27 +8,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Screen',
-      home: LoginScreen(),
+      home: LoginPage(),
     );
   }
 }
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Screen'),
+        title: Text('Login Page'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.network(
+              'https://in.pinterest.com/pin/633389135079520379/', // Replace with your actual image URL
+              height: 100.0,
+            ),
+            SizedBox(height: 16.0),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
@@ -38,20 +47,19 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 16.0),
             TextField(
               controller: _passwordController,
-              obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
               ),
+              obscureText: true,
             ),
-            SizedBox(height: 24.0),
+            SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
-                // Implement your authentication logic here
-                String username = _usernameController.text;
-                String password = _passwordController.text;
-
-                // For simplicity, we are just printing the entered credentials
-                print('Username: $username, Password: $password');
+                // Add your login logic here
+                // You can check the credentials and navigate to the news page if successful
+                // For simplicity, I'll just print the entered credentials
+                print('Username: ${_usernameController.text}');
+                print('Password: ${_passwordController.text}');
               },
               child: Text('Login'),
             ),
