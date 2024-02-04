@@ -88,3 +88,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  assets:
+    - http:\Users\RAHUL\AndroidStudioProjects\news_app\assets\img21.jpg

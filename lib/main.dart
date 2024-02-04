@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
-              'https://in.pinterest.com/pin/633389135079520379/', // Replace with your actual image URL
+              'http:\Users\RAHUL\AndroidStudioProjects\news_app\assets\img21.jpg', // Replace with your actual image URL
               height: 100.0,
             ),
             SizedBox(height: 16.0),
