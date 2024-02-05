@@ -55,19 +55,11 @@ class _MyLoginState extends State<MyLogin>{
                               borderRadius: BorderRadius.circular(10))),
                     ),
                     const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text('Sing In', style: TextStyle(
-                          color:Color(0xff4c504b),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Text('login', style: TextStyle(
+
                         fontSize: 27, fontWeight: FontWeight.w700),
                       ),
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Color(0xff4c504b),
-
-
-                          ),
-
-                          
 
                       ],
 
