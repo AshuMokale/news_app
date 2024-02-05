@@ -44,7 +44,7 @@ class _MyLoginState extends State<MyLogin>{
                         )
                       ),
                     ),
-                    const SizedBox(height: 30,),
+                    const SizedBox(height: 15,),
                     TextField(
                       obscureText: true,
                       decoration: InputDecoration(
