@@ -118,46 +118,47 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 40,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: const Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
-                            ],
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('Register'),
+                              //  style: ButtonStyle(
+                              //       color: Colors.white,
+                              //       fontSize: 27,
+                              //       fontWeight: FontWeight.w700),
+                              // ),
+                              // CircleAvatar(
+                              //   radius: 30,
+                              //   backgroundColor: const Color(0xff4c505b),
+                              //   child: IconButton(
+                              //       color: Colors.white,
+                              //       onPressed: () {},
+                              //       icon: const Icon(
+                              //         Icons.arrow_forward,
+                              //       )),
+                              // )
+                              )],
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextButton(
+                              ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, 'login');
                                 },
                                 child: const Text(
                                   'Sign In',
-                                  textAlign: TextAlign.left,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontSize: 18),
                                 ),
-                                style: const ButtonStyle(),
+                                // style: const ButtonStyle(),
                               ),
                             ],
                           )
