@@ -54,10 +54,22 @@ class _MyLoginState extends State<MyLogin> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
-                    SizedBox(height: 10),
-                    ElevatedButton(onPressed: () {},
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                        minimumSize: Size(250,50),
+                        ),
+                        onPressed: () {},
 
-                        child: const Text("Login"))
+                        child: const Text("Login")),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(250,50),
+                        ),
+                        onPressed: () {},
+
+                        child: const Text("Sign up"))
                   ],
                 ),
               ),
