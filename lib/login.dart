@@ -67,7 +67,9 @@ class _MyLoginState extends State<MyLogin> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(250,50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'Register');
+                        },
 
                         child: const Text("Sign up"))
                   ],
