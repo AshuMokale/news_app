@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                 // For simplicity, we are just printing the entered credentials
                 print('Username: $username, Password: $password');
               },
-              child: Text('login'),
+              child: Text('Login'),
             ),
           ],
         ),
