@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:news_app/Register.dart';
 import 'package:news_app/login.dart';
