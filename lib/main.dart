@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Register.dart';
+import 'package:news_app/login.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login Screen',
-      home: LoginScreen(),
-    );
-  }
-}
+void main(){
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+   initialRoute: 'login',
+    routes: {
+      'login': (context)=> const MyLogin(),
+      'Register': (context)=> const MyRegister(),
+    },
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
+<<<<<<< HEAD
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,3 +57,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+=======
+  ));
+}
+>>>>>>> 487576aafabd32cb4397e7e5047b4d4381e3b8e0
