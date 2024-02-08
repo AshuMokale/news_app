@@ -71,7 +71,7 @@ class _MyLoginState extends State<MyLogin> {
                           Navigator.pushNamed(context, 'Register');
                         },
 
-                        child: const Text("Sing up"))
+                        child: const Text("Sign up"))
                   ],
                 ),
               ),
