@@ -1,6 +1,6 @@
 # news_app
 
-A new Flutter project.
+A news app based on Flutter.
 
 ## Getting Started
 
