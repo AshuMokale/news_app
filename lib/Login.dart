@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:news_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class MyLogin extends StatefulWidget {
@@ -22,16 +21,20 @@ class _MyLoginState extends State<MyLogin> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // Handle successful login, navigate to next screen, etc.
       // print('User logged in: ${userCredential.user!.email}');
-      AuthenticationPopup.show(context, 'User logged in: ${userCredential.user!.email}');
-      Timer(const Duration(seconds: 1), () {
-        Navigator.pushNamed(context, 'Home');
-      });
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to HomeScreen
-      // );
+      if (_emailController.text.trim().toLowerCase() == 'admin@imcc.in') {
+        // If the username is "admin", navigate to AdminHomeScreen
+        AuthenticationPopup.show(context, 'User logged in: ${userCredential.user!.email}');
+        Timer(const Duration(seconds: 1), () {
+          Navigator.pushNamed(context, 'AdminHome');
+        });
+      } else {
+        // If the username is not "admin", navigate to default HomeScreen
+        AuthenticationPopup.show(context, 'User logged in: ${userCredential.user!.email}');
+        Timer(const Duration(seconds: 1), () {
+          Navigator.pushNamed(context, 'Home');
+        });
+      }
     } catch (e) {
       // ignore: use_build_context_synchronously
       AuthenticationPopup.show(context, '$e');

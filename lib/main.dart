@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/Login.dart';
 import 'package:news_app/Register.dart';
+import 'package:news_app/admin/home.dart';
 import 'package:news_app/home.dart';
 import 'package:news_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,7 @@ Future<void> main() async{
         'Login': (context) => const MyLogin(),
         'Register': (context) => const MyRegister(),
         'Home':(context) => HomeScreen(),
+        'AdminHome': (context) => AdminHome(),
       },
     ),
   );
