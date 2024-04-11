@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:news_app/home.dart';
+// import 'package:news_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class MyLogin extends StatefulWidget {
@@ -13,8 +13,8 @@ class MyLogin extends StatefulWidget {
 
 class _MyLoginState extends State<MyLogin> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _signInWithEmailAndPassword(BuildContext context) async {
     try {
@@ -107,7 +107,7 @@ class _MyLoginState extends State<MyLogin> {
                     const SizedBox(height: 10),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(250, 50),
+                          minimumSize: const Size(250, 50),
                         ),
                         onPressed: () {
                           _signInWithEmailAndPassword(context);
@@ -116,7 +116,7 @@ class _MyLoginState extends State<MyLogin> {
                         const SizedBox(height: 10),
                         ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(250, 50),
+                          minimumSize: const Size(250, 50),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, 'Register');
@@ -139,14 +139,14 @@ class AuthenticationPopup {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Authentication'),
+          title: const Text('Authentication'),
           content: Text(message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
