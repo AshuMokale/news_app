@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
   // Initialize Firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
+  // final Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
 
   Widget _getInitialRoute() {
     return StreamBuilder<User?>(
