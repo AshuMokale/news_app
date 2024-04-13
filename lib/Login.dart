@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-// import 'package:news_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:news_app/Register.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -114,14 +114,18 @@ class _MyLoginState extends State<MyLogin> {
                         },
                         child: const Text("Login")),
                         const SizedBox(height: 10),
-                        ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(250, 50),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'Register');
-                        },
-                        child: const Text("Sign up"))
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(250, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MyRegister()),
+                        );
+                      },
+                      child: const Text("Sign up")
+                    ),
                   ],
                 ),
               ),
