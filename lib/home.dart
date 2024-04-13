@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:news_app/Login.dart' show AuthenticationPopup;
+import 'package:news_app/api/article_screen.dart';
 import 'package:news_app/api/articles.dart' show Article;
 
 class HomeScreen extends StatelessWidget {
@@ -44,12 +46,19 @@ class HomeScreen extends StatelessWidget {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
+                    final article = snapshot.data![index];
                     return ListTile(
                       title: Text(snapshot.data![index].title),
                       subtitle: Text(snapshot.data![index].description),
                       onTap: () {
                         // Handle article tap
-                        print('Article tapped: ${snapshot.data![index].url}');
+                        // print('Article tapped: ${snapshot.data![index].url}');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ArticleDetailScreen(article: article),
+                          ),
+                        );
                       },
                     );
                   },
