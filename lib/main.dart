@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Login.dart';
-import 'package:news_app/Register.dart';
-import 'package:news_app/home.dart';
+import 'package:news_app/screens/Login.dart';
+import 'package:news_app/screens/Register.dart';
+import 'package:news_app/screens/home.dart';
+import 'screens/bottom_nav_bar.dart';
 import 'package:news_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
         } else {
           if (snapshot.hasData && snapshot.data != null) {
             // If user is logged in, navigate to the home screen
-            return HomeScreen();
+            // return HomeScreen();
+            return const BottomNavBar();
           } else {
             // If user is not logged in, navigate to the login screen
             return const MyLogin();
@@ -83,6 +85,10 @@ class MyApp extends StatelessWidget {
       //   },
       // ),
       home: _getInitialRoute(),
+      // home: const BottomNavBar(),
+      // routes: {
+      //   'Login': (context) => const MyLogin(), // Implement your LoginScreen
+      // },
     );
   }
 }

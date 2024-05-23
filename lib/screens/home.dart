@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:news_app/Login.dart' show AuthenticationPopup;
-import 'package:news_app/api/article_screen.dart';
+import 'package:news_app/screens/Login.dart' show AuthenticationPopup;
+import 'package:news_app/api/article_list_tile.dart';
+// import 'package:news_app/api/article_screen.dart';
 import 'package:news_app/api/articles.dart' show Article;
 
 class HomeScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.logout_rounded),
@@ -46,31 +47,51 @@ class HomeScreen extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final article = snapshot.data![index];
-                    return ListTile(
-                      title: Text(snapshot.data![index].title),
-                      subtitle: Text(snapshot.data![index].description),
-                      onTap: () {
-                        // Handle article tap
-                        // print('Article tapped: ${snapshot.data![index].url}');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ArticleDetailScreen(article: article),
-                          ),
-                        );
-                      },
-                    );
+                    return ArticleListTile(article: article);
                   },
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
-
-              // By default, show a loading spinner.
               return const CircularProgressIndicator();
             },
           ),
         ),
+    );
+  }
+}
+
+class ArticleListScreen extends StatelessWidget {
+  const ArticleListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Articles'),
+      ),
+      body: Center(
+        child: FutureBuilder<List<Article>>(
+          future: Article.fetchArticles(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('No articles found.');
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final article = snapshot.data![index];
+                  return ArticleListTile(article: article);
+                },
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }

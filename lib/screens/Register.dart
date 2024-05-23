@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:news_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:news_app/Login.dart';
+import 'package:news_app/screens/Login.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
