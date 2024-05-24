@@ -15,8 +15,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    const FavoriteArticlesScreen(),
-    const ProfileScreen(),
+    FavouriteArticlesScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

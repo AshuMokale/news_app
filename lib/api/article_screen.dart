@@ -1,22 +1,46 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/api/articles.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 // import 'package:html/dom.dart' as htmlDom;
- 
 
 class ArticleDetailScreen extends StatelessWidget {
-  const ArticleDetailScreen({required this.article, super.key});
+  ArticleDetailScreen({required this.article, super.key});
   final Article article;
 
-  // String fetchArticle() {
-  //   final response = http.Client().get(Uri.parse(article.url));
-  //   if (response.statusCode == 200) {
-  //     return response.body;
-  //   } else {
-  //     throw Exception();
-  //   }
-  // }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> _addToFavorites(BuildContext context) async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      try {
+        await _firestore.collection('favourite_articles').add({
+          'uid': user.uid,
+          'author': article.author,
+          'title': article.title,
+          'description': article.description,
+          'url': article.url,
+          'urlToImage': article.urlToImage,
+          'publishedAt': article.publishedAt,
+          'content': article.content,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Added to Favorites')),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add to favorites: $e')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please log in to add favorites')),
+      );
+    }
+  }
 
   Future<String> parseHtmlFromUrl(String url) async {
     try {
@@ -85,15 +109,16 @@ class ArticleDetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Added to favorites!'),
-              ),
-            );
-          },
-          child: const Icon(Icons.favorite),
-        ),
+        // onPressed: () {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(
+        //       content: Text('Added to favorites!'),
+        //     ),
+        //   );
+        // },
+        onPressed: () => _addToFavorites(context),
+        child: const Icon(Icons.favorite),
+      ),
     );
   }
 }

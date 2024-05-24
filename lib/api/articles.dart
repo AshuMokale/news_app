@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 class Article {
@@ -45,5 +46,18 @@ class Article {
     } else {
       throw Exception('Failed to load articles');
     }
+  }
+
+  factory Article.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return Article(
+      author: data['author'],
+      title: data['title'],
+      description: data['description'],
+      url: data['url'],
+      urlToImage: data['urlToImage'],
+      publishedAt: data['publishedAt'],
+      content: data['content'],
+    );
   }
 }

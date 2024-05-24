@@ -27,27 +27,40 @@ class AuthService {
     }
   }
 
-  Future<void> updateUserDetails(String uid, String address, String phoneNo) async {
-  try {
-    final QuerySnapshot querySnapshot = await _firestore
-        .collection('users')
-        .where('uid', isEqualTo: uid)
-        .get();
-
-    // Check if there is exactly one document that matches the query
-    if (querySnapshot.docs.length == 1) {
-      final DocumentSnapshot document = querySnapshot.docs.first;
-      
-      // Update the document with the new data
-      await document.reference.update({
-        'address': address,
-        'phoneNo': phoneNo,
-      });
-    } else {
-      print('Document not found or multiple documents found for the current user.');
+  Future<Map<String, dynamic>?> getUserDetails(String uid) async {
+    try {
+      DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
+      if (doc.exists) {
+        return doc.data() as Map<String, dynamic>?;
+      }
+      return null;
+    } catch (e) {
+      print('Error getting user details: $e');
+      return null;
     }
-  } catch (e) {
-    print('Failed to update user details: $e');
   }
-}
+
+  Future<void> updateUserDetails(String uid, String address, String phoneNo) async {
+    try {
+      final QuerySnapshot querySnapshot = await _firestore
+          .collection('users')
+          .where('uid', isEqualTo: uid)
+          .get();
+
+      // Check if there is exactly one document that matches the query
+      if (querySnapshot.docs.length == 1) {
+        final DocumentSnapshot document = querySnapshot.docs.first;
+        
+        // Update the document with the new data
+        await document.reference.update({
+          'address': address,
+          'phoneNo': phoneNo,
+        });
+      } else {
+        print('Document not found or multiple documents found for the current user.');
+      }
+    } catch (e) {
+      print('Failed to update user details: $e');
+    }
+  }
 }
