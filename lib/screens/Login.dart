@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-// import 'package:news_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:news_app/screens/Register.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -13,8 +13,8 @@ class MyLogin extends StatefulWidget {
 
 class _MyLoginState extends State<MyLogin> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _signInWithEmailAndPassword(BuildContext context) async {
     try {
@@ -107,21 +107,25 @@ class _MyLoginState extends State<MyLogin> {
                     const SizedBox(height: 10),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(250, 50),
+                          minimumSize: const Size(250, 50),
                         ),
                         onPressed: () {
                           _signInWithEmailAndPassword(context);
                         },
                         child: const Text("Login")),
                         const SizedBox(height: 10),
-                        ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(250, 50),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'Register');
-                        },
-                        child: const Text("Sign up"))
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(250, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MyRegister()),
+                        );
+                      },
+                      child: const Text("Sign up")
+                    ),
                   ],
                 ),
               ),
@@ -139,14 +143,14 @@ class AuthenticationPopup {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Authentication'),
+          title: const Text('Authentication'),
           content: Text(message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );

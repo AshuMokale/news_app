@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:news_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:news_app/Login.dart' show AuthenticationPopup;
+import 'package:news_app/screens/Login.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -52,6 +52,34 @@ class _MyRegisterState extends State<MyRegister> {
     }
   }
 
+//   Future<void> _registerWithEmailAndPassword(BuildContext context) async {
+//   try {
+//     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+//       email: _emailController.text.trim(),
+//       password: _passwordController.text.trim(),
+//     );
+//     // Check if userCredential is not null
+//     if (userCredential.user != null) {
+//       // If userCredential is not null, registration is successful
+//       // Show popup for registered
+//       AuthenticationPopup.show(context, 'Registered successfully');
+//       Timer(const Duration(seconds: 1), () {
+//         Navigator.pushNamed(context, 'Login');
+//       });
+//       // You can also sign in the user automatically after registration
+//       // For example:
+//       // await _signInWithEmailAndPassword(context);
+//     } else {
+//       // Handle null userCredential (registration failed)
+//       AuthenticationPopup.show(context, 'Registration failed. Please try again.');
+//     }
+//   } catch (e) {
+//     print('Failed to register: $e');
+//     // Handle registration failure
+//     AuthenticationPopup.show(context, 'Registration failed. Please try again.');
+//   }
+// }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,6 +113,30 @@ class _MyRegisterState extends State<MyRegister> {
                       margin: const EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
+                          // TextField(
+                          //   style: const TextStyle(color: Colors.white),
+                          //   decoration: InputDecoration(
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //         borderSide: const BorderSide(
+                          //           color: Colors.white,
+                          //         ),
+                          //       ),
+                          //       focusedBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //         borderSide: const BorderSide(
+                          //           color: Colors.black,
+                          //         ),
+                          //       ),
+                          //       hintText: "Name",
+                          //       hintStyle: const TextStyle(color: Colors.white),
+                          //       border: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //       )),
+                          // ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           TextField(
                             style: const TextStyle(color: Colors.white),
                             controller: _emailController,
@@ -196,7 +248,10 @@ class _MyRegisterState extends State<MyRegister> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'Login');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const MyLogin()),
+                                  );
                                 },
                                 child: const Text(
                                   'Sign In',

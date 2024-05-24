@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Login.dart';
-import 'package:news_app/Register.dart';
-import 'package:news_app/home.dart';
+import 'package:news_app/screens/Login.dart';
+import 'package:news_app/screens/Register.dart';
+import 'package:news_app/screens/home.dart';
+import 'screens/bottom_nav_bar.dart';
 import 'package:news_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'firebase_options.dart';
 
-
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
@@ -36,7 +35,7 @@ Future<void> main() async{
     ),
   );
 
-  // runApp(MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -51,14 +50,15 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // If authentication state is loading, display a loading indicator
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else {
           if (snapshot.hasData && snapshot.data != null) {
             // If user is logged in, navigate to the home screen
-            return HomeScreen();
+            // return HomeScreen();
+            return const BottomNavBar();
           } else {
             // If user is not logged in, navigate to the login screen
-            return MyLogin();
+            return const MyLogin();
           }
         }
       },
@@ -85,58 +85,10 @@ class MyApp extends StatelessWidget {
       //   },
       // ),
       home: _getInitialRoute(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Function to handle anonymous login
-  Future<void> _signInAnonymously() async {
-    try {
-      UserCredential userCredential = await _auth.signInAnonymously();
-      User? user = userCredential.user;
-      print('Anonymous user signed in: ${user!.uid}');
-      // Navigate to next screen or perform any other action
-    } catch (e) {
-      print('Failed to sign in anonymously: $e');
-      // Handle error
-    }
-
-  }
-  
-  Future<void> _signOutUser() async {
-    try {
-      await _auth.signOut();
-      // UserCredential userCredential = await _auth.signOut();
-      // User? user = userCredential.user;
-    } catch (e) {
-      print("Error signing out: $e");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('News App'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: _signInAnonymously,
-            child: Text('Sign In Anonymously'),
-          ),
-          const SizedBox(height: 10,),
-          ElevatedButton(
-            onPressed: _signOutUser,
-            child: Text('Sign Out')
-          ),
-        ],
-      ),
+      // home: const BottomNavBar(),
+      // routes: {
+      //   'Login': (context) => const MyLogin(), // Implement your LoginScreen
+      // },
     );
   }
 }
