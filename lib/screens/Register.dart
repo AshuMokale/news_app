@@ -60,7 +60,7 @@ class _MyRegisterState extends State<MyRegister> {
         body: Stack(
           children: [
             Container(
-              padding: const EdgeInsets.only(left: 35, top: 30),
+              padding: const EdgeInsets.only(left: 35, top: 20),
               child: const Text(
                 'Create\nAccount',
                 style: TextStyle(color: Colors.white, fontSize: 33),
@@ -69,7 +69,7 @@ class _MyRegisterState extends State<MyRegister> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.28),
+                  top: MediaQuery.of(context).size.height * 0.15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -200,7 +200,7 @@ class _MyRegisterState extends State<MyRegister> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 25),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
