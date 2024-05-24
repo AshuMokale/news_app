@@ -54,7 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (subscriptionData != null) {
         setState(() {
           _subscriptionType = subscriptionData['subscriptionType'] ?? '';
-          _subscriptionEndDate = (subscriptionData['endDate'] as Timestamp).toDate();
+          _subscriptionEndDate = subscriptionData['endDate'] != null
+              ? (subscriptionData['endDate'] as Timestamp).toDate()
+              : null;
         });
       }
     }
@@ -68,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _addressController.text,
         _phoneNumberController.text,
       );
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Details Updated')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Details Updated')));
     }
   }
 
@@ -76,14 +78,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     User? user = _auth.currentUser;
     if (user != null) {
       DateTime startDate = DateTime.now();
-      DateTime endDate = _subscriptionType == 'monthly' ? startDate.add(Duration(days: 30)) : startDate.add(Duration(days: 365));
+      DateTime endDate;
+
+      if (_subscriptionType == 'monthly') {
+        endDate = startDate.add(Duration(days: 30));
+      } else if (_subscriptionType == 'yearly') {
+        endDate = startDate.add(Duration(days: 365));
+      } else {
+        // Provide a default value or handle the case where subscriptionType is not set
+        endDate = startDate.add(Duration(days: 30)); // Default to monthly
+      }
 
       await _subscriptionService.updateSubscription(user.uid, _subscriptionType, startDate, endDate);
       setState(() {
         _subscriptionEndDate = endDate;
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Subscribed successfully')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Subscribed successfully')));
     }
   }
 
@@ -92,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('External wallet selected')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('External wallet selected')));
   }
 
   void _openCheckout(String subscriptionType) async {
@@ -104,7 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       var options = {
         'key': 'rzp_test_BNuKWkXYHC8QRe',
-        'amount': subscriptionType == 'monthly' ? 10000 : 100000, // Amount in paise
+        'amount': subscriptionType == 'monthly' ? 10000 : 100000,
+        'currency': 'INR', // Specify the currency code
         'name': 'Subscription',
         'description': 'Subscription Payment',
         'prefill': {
@@ -128,10 +140,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
@@ -181,9 +193,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildUpdateButton() {
     return ElevatedButton(
       onPressed: _updateUserDetails,
-      child: Text('Update Details'),
+      child: const Text('Update Details'),
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         minimumSize: Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -207,19 +220,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildSubscriptionButtons() {
     return Column(
       children: [
-        _buildSubscriptionButton('Subscribe Monthly', 'monthly'),
+        _buildSubscriptionButton('Subscribe Monthly', 'monthly', price: 'Rs. 100'),
         SizedBox(height: 8),
-        _buildSubscriptionButton('Subscribe Yearly', 'yearly'),
+        _buildSubscriptionButton('Subscribe Yearly', 'yearly', price: 'Rs. 1,000'),
       ],
     );
   }
 
-  Widget _buildSubscriptionButton(String text, String subscriptionType) {
+  Widget _buildSubscriptionButton(String text, String subscriptionType, {required String price}) {
     return ElevatedButton(
       onPressed: () => _openCheckout(subscriptionType),
-      child: Text(text),
+      child: Column(
+        children: [
+          Text(text),
+          SizedBox(height: 4),
+          Text(price, style: TextStyle(fontSize: 16)),
+        ],
+      ),
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.green,
         minimumSize: Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
