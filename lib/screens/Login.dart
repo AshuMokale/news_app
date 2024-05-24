@@ -24,7 +24,8 @@ class _MyLoginState extends State<MyLogin> {
       );
       // Handle successful login, navigate to next screen, etc.
       // print('User logged in: ${userCredential.user!.email}');
-      AuthenticationPopup.show(context, 'User logged in: ${userCredential.user!.email}');
+      AuthenticationPopup.show(
+          context, 'User logged in: ${userCredential.user!.email}');
       Timer(const Duration(seconds: 1), () {
         Navigator.pushNamed(context, 'Home');
       });
@@ -39,23 +40,6 @@ class _MyLoginState extends State<MyLogin> {
       // Handle login failure
     }
   }
-
-  // Future<void> _signInWithEmailAndPassword() async {
-  //   try {
-  //     final credential = await _auth.signInWithEmailAndPassword(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //     );
-  //     // ignore: avoid_print
-  //     print(credential.user!.uid);
-  //   } on FirebaseAuthException catch (e) {
-  //       if (e.code == 'user-not-found') {
-  //         print('No user found for that email.');
-  //       } else if (e.code == 'wrong-password') {
-  //         print('Wrong password provided for that user.');
-  //       }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,18 +97,35 @@ class _MyLoginState extends State<MyLogin> {
                           _signInWithEmailAndPassword(context);
                         },
                         child: const Text("Login")),
-                        const SizedBox(height: 10),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(250, 50),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MyRegister()),
-                        );
-                      },
-                      child: const Text("Sign up")
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                              color:
+                                  Colors.black87), // Change text color to black
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyRegister()),
+                            );
+                          },
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(
+                              color: Colors
+                                  .blue, // Change button text color to blue
+                              fontWeight:
+                                  FontWeight.bold, // Add bold font weight
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
